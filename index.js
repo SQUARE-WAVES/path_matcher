@@ -1,5 +1,5 @@
 var pathMatcher = require('./lib/pathMatcher.js');
-var helpers = require('PDL');
+var pdl = require('pdl');
 
 //-----------------------------------------------------------------------------
 // A route schema is a description for a route, it should be serializable as json
@@ -28,10 +28,10 @@ var helpers = require('PDL');
 
 var compilePathMatcher = function(schema){
 
-	var pathData = helpers.createPathData(schema);
+	var pathData = pdl.compilePath(schema);
 	
 	return function(test){
-		var testPath = helpers.tokenizePath(test);
+		var testPath = pdl.tokenizePath(test);
 		var matchSet = pathMatcher(pathData,testPath);
 
 		if(!matchSet){

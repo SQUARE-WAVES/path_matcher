@@ -72,7 +72,7 @@ suite('test the schema matchers',function(){
 
 	test('parameterized route with splat',function(done){
 		var schema = {
-			'path':'/hello/:name/*extra',
+			'path':'/hello/:name/*extra?',
 			'params':{
 				'name':{
 					'type':'path',
