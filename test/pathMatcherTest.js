@@ -19,13 +19,29 @@ function makePath(list) {
 		if(val === '*'){
 			return {
 				'isSplat' : true,
-				'isOptional' : true
+				'isOptional' : true,
+				'matches': function(){
+					return true;
+				}
 			};
+		}
+		else if(val === '$'){
+			return{
+				'restricted':true,
+				'isSplat' : true,
+				'isOptional' : true,
+				'matches': function(val){
+					return val === '$';
+				}
+			}
 		}
 		else if(val === '+'){
 			return {
 				'isSplat' : true,
-				'isOptional' : false
+				'isOptional' : false,
+				'matches': function(){
+					return true;
+				}
 			}
 		}
 		if(val.indexOf('?') !== -1){
@@ -102,6 +118,27 @@ suite('test the path matching function',function(){
 
 		assert.notEqual(false,matchPath(path,['a']),'the route should match with no optional prarms and no splat');
 		assert.notEqual(false,matchPath(path,['a','b']),'the route should match with optional prarms and no splat');
+
+		done();
+	});
+
+	test('path with restricted splat',function(done){
+		var path = makePath(['a','b?','$']);
+		assert.notEqual(false,matchPath(path,['a','$','$']),'the path should match with no optional parameters, but correct extra splat present');
+		assert.notEqual(false,matchPath(path,['a','b','$','$','$']),'the path should match with the optional parameter and correct splat');
+
+		var splatMatches = matchPath(path,['a','$','$']);
+		assert.deepEqual(['$','$'],splatMatches[1].matched,'the splat matches should contain all the extra values');
+
+		splatMatches = matchPath(path,['a']);
+		assert.equal(1,splatMatches.length,'the splat parameter should not have any matches');
+
+		assert.notEqual(false,matchPath(path,['a']),'the route should match with no optional prarms and no splat');
+		assert.notEqual(false,matchPath(path,['a','b']),'the route should match with optional prarms and no splat');
+
+		assert.equal(false,matchPath(path,['a','c','d']),'the path should not match with no optional params and incorrect splat');
+		assert.equal(false,matchPath(path,['a','b','d']),'the path should not match with optional params and incorrect splat');
+		assert.equal(false,matchPath(path,['a','$','$','b','d']),'the path should not match with optional params and partially correct splat');
 
 		done();
 	});

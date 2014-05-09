@@ -98,5 +98,10 @@ suite('test the schema matchers',function(){
 
 		done();
 	});
+});
 
+suite('test string matchers',function(){
+	test('just a route',function(done){
+		done();
+	});
 });
