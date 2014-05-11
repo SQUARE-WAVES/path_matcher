@@ -3,16 +3,24 @@ var createMatcher = require('../index.js');
 
 suite('test the schema matchers',function(){
 
-	test('unparameterized route', function (done)  {
+	test('unparameterized routes', function (done)  {
 		var schema = {
 			'path':'/dogs/cats/bears'
-		}
+		};
+
+		var schema2 = {
+			'path':'/'
+		};
 
 		var matcher = createMatcher(schema);
+		var matcher2 = createMatcher(schema2);
 
 		assert.ok(matcher(schema.path),'the schema should match the path it was generated with');
 		assert.equal(false,matcher('/dogs/cats/asdf'),'the schema should not match a different route');
 		assert.equal(false,matcher('/dogs/cats/bears/more'),'the schema should not match an extended route');
+
+		assert.equal(false,matcher2('/anything'),'a / route shouldn\'t match things');
+		assert.notEqual(false,matcher2('/'),'a / route should match /');
 		done();
 	});
 
@@ -96,12 +104,6 @@ suite('test the schema matchers',function(){
 		assert.equal(false,matcher('/hello/512!'),'the schema should not match an incorrect instance without the splat');
 		assert.equal(false,matcher('/hello/!!!/jones'),'the schema should not match an incorrect instance with splat');
 
-		done();
-	});
-});
-
-suite('test string matchers',function(){
-	test('just a route',function(done){
 		done();
 	});
 });
