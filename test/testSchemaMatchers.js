@@ -106,4 +106,12 @@ suite('test the schema matchers',function(){
 
 		done();
 	});
+
+	test('weird matching cases',function(done){
+		var s1 = {'path':'/dogs/:id'}
+		var m1 = createMatcher(s1);
+
+		assert.equal(false,m1('/dogs/'),'it shouldn\'t match on an empty token');
+		done();
+	});
 });
