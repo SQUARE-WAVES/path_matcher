@@ -3,19 +3,20 @@ var createMatcher = require('../index.js');
 
 suite('test the schema matchers',function(){
 
-	test('unparameterized routes', function (done)  {
+	test('unparameterized routes', function (done){
+		
 		var schema = {
-			'path':'/dogs/cats/bears'
+			'pathDescription':'/dogs/cats/bears'
 		};
 
 		var schema2 = {
-			'path':'/'
+			'pathDescription':'/'
 		};
 
 		var matcher = createMatcher(schema);
 		var matcher2 = createMatcher(schema2);
 
-		assert.ok(matcher(schema.path),'the schema should match the path it was generated with');
+		assert.ok(matcher(schema.pathDescription),'the schema should match the path it was generated with');
 		assert.equal(false,matcher('/dogs/cats/asdf'),'the schema should not match a different route');
 		assert.equal(false,matcher('/dogs/cats/bears/more'),'the schema should not match an extended route');
 
@@ -27,14 +28,16 @@ suite('test the schema matchers',function(){
 	test('parameterized route without options',function(done){
 
 		var schema = {
-			'path':'/hello/:name',
-			'params':{
-				'name':{
-					'type':'path',
-					'values':[
-						'charles',
-						'barnabus'
-					]
+			'pathDescription':{
+				'path':'/hello/:name',
+				'params':{
+					'name':{
+						'type':'path',
+						'values':[
+							'charles',
+							'barnabus'
+						]
+					}
 				}
 			}
 		};
@@ -51,18 +54,20 @@ suite('test the schema matchers',function(){
 
 	test('parameterized route with options',function(done){
 		var schema = {
-			'path':'/hello/:title?/:name',
-			'params':{
-				'name':{
-					'type':'path',
-					'values':[
-						'charles',
-						'barnabus'
-					]
-				},
-				'title':{
-					'type':'path',
-					'regex':'\\w+'
+			'pathDescription':{
+				'path':'/hello/:title?/:name',
+				'params':{
+					'name':{
+						'type':'path',
+						'values':[
+							'charles',
+							'barnabus'
+						]
+					},
+					'title':{
+						'type':'path',
+						'regex':'\\w+'
+					}
 				}
 			}
 		};
@@ -80,18 +85,20 @@ suite('test the schema matchers',function(){
 
 	test('parameterized route with splat',function(done){
 		var schema = {
-			'path':'/hello/:name/*extra?',
-			'params':{
-				'name':{
-					'type':'path',
-					'values':[
-						'charles',
-						'barnabus'
-					]
-				},
-				'title':{
-					'type':'path',
-					'regex':'\\w+'
+			'pathDescription':{
+				'path':'/hello/:name/*extra?',
+				'params':{
+					'name':{
+						'type':'path',
+						'values':[
+							'charles',
+							'barnabus'
+						]
+					},
+					'title':{
+						'type':'path',
+						'regex':'\\w+'
+					}
 				}
 			}
 		};
@@ -108,7 +115,7 @@ suite('test the schema matchers',function(){
 	});
 
 	test('weird matching cases',function(done){
-		var s1 = {'path':'/dogs/:id'}
+		var s1 = {'pathDescription':'/dogs/:id'}
 		var m1 = createMatcher(s1);
 
 		assert.equal(false,m1('/dogs/'),'it shouldn\'t match on an empty token');

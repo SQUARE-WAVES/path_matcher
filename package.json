@@ -1,14 +1,14 @@
 {
-  "name": "path_matcher",
+  "name": "warpath-matcher",
   "version": "0.0.0",
-  "description": "a thing to create path matchers from schemas",
+  "description": "a thing to create path matchers from warpath schemas",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --ui tdd test/*.js"
   },
   "dependencies": {
-    "PDL": "git+https://github.com/SQUARE-WAVES/PDL.git"
+    "path_description_language": "^1.1.0"
   },
   "author": "Mike B",
-  "license": "internal"
+  "license": "MIT"
 }
