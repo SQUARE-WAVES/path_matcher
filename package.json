@@ -10,5 +10,8 @@
     "path_description_language": "^1.1.0"
   },
   "author": "Mike B",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  }
 }
