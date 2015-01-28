@@ -3,7 +3,7 @@ WARPATH-MATCHER
 
 #(Round 2 of the warpath suite of helpfully named tools)
 
-checkout if paths match other paths its ALL OUT PATH COMBAT, here on the field of SEEING IF PATHS MATCH A SCHEMA.
+checkout if paths match descriptions of paths its ALL OUT PATH COMBAT, here on the field of SEEING IF PATHS MATCH A DESCRIPTION IN A SCHEMA.
 
 #Hey what's the big idea here?
 
@@ -58,6 +58,14 @@ matchesPath("/dogs/borzoi") //should be true!
 matchesPath("/cats/whatever") //totally false!
 matchesPath("/dogs/dachshund") //nope, bad parameter value!
 
+```
+
+in the case that a parameterized route is matched, the matcher function will return an object with keys corresponding to the matched parameters, and values corresponding to what was in the path, so for example "/dogs/borzoi" would return the object
+
+```javascript
+{
+	"breed":"borzoi"
+}
 ```
 
 #what about queries?
