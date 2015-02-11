@@ -6,6 +6,10 @@
   "scripts": {
     "test": "mocha --reporter spec --ui tdd test/*.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SQUARE-WAVES/path_matcher.git"
+  },
   "dependencies": {
     "path_description_language": "^1.1.0"
   },
